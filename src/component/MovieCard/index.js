@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './style.css';
 
 const movie = {
@@ -17,16 +18,26 @@ const movie = {
 };
 
 const Movie = () => {
+  const history = useHistory();
   return (
-    <div className='movieCard'>
+    <div className="movieCard">
       <img
-        className='poster'
+        className="poster"
         src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}?api_key=7cdf7d7de96673cdc912e661988a1435`}
         alt="Poster"
       />
       <p>{movie.vote_average}</p>
-      <h3 className='cardTitle'>{movie.title}</h3>
-      <button className='cardBtn' type="button">Add to list</button>
+      <button
+        type="button"
+        className="cardTitle"
+        onClick={() => history.push(`/movie/${movie.id}`)}
+      >
+        <p>{movie.title}</p>
+      </button>
+
+      <button className="cardBtn" type="button">
+        Add to list
+      </button>
     </div>
   );
 };
