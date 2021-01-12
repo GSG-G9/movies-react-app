@@ -1,0 +1,21 @@
+.movieCard {
+  margin: 15px;
+  border: black solid 1px;
+  height: auto;
+  width: 200px;
+  background-color: dimgrey;
+}
+.poster {
+  width: 200px;
+}
+
+.cardBtn {
+  border: black solid 1px;
+  border-radius: 50px;
+  background-color: whitesmoke;
+  margin: 10px 60px;
+}
+
+.cardTitle {
+  border: black solid 1px;
+}
