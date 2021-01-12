@@ -6,7 +6,6 @@ import Favorite from './pages/Favorite';
 import Details from './pages/Details';
 import NotFound from './pages/404';
 
-
 function App() {
   return (
     <Router>

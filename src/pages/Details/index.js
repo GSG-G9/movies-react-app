@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import MovieTitle from '../../component/MovieTitle';
+import MovieDetails from '../../component/MovieDetails';
+import RelatedMovie from '../../component/RelatedMovie';
 
-function Details() {
-  return <div>DetailsPage</div>;
+class Details extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div>
+        <MovieTitle />
+        <MovieDetails />
+        <RelatedMovie />
+      </div>
+    );
+  }
 }
 export default Details;
