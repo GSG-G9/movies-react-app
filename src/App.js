@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Favorite from './pages/Favorite';
 import Details from './pages/Details';
 import NotFound from './pages/404';
-
 import './App.css';
 
 function App() {
