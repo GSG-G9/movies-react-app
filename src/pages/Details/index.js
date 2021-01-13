@@ -1,74 +1,79 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable camelcase */
-/* eslint-disable no-console */
-/* eslint-disable react/no-unused-state */
+
+
 import React, { Component } from 'react';
 import MovieTitle from '../../component/MovieTitle';
 import MovieDetails from '../../component/MovieDetails';
 import RelatedMovie from '../../component/RelatedMovie';
-import PropTypes from 'prop-types'
+
+
 class Details extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
+    state = {
+      isLoaded:false,
+      movieData: null,
+      movieRelated: [],
+    };
 
   componentDidMount() {
+    this.setState({isLoaded:false})
     const { id } = this.props.match.params;
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=7cdf7d7de96673cdc912e661988a1435`)
+      .then((res) => res.json()).then((result) => {
+          this.setState({
+            movieData: {
+              title: result.title,
+              release_date: result.release_date,
+              poster_path: `https://www.themoviedb.org/t/p/w1280/${result.poster_path}`,
+              description: result.overview,
+              genres: result.genres,
+              rate: result.vote_average,
+              time: result.runtime,
+              fullMovieDetails: result,
+            },
+            isLoaded:true
+          });
+        }).catch(console.log);
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=7cdf7d7de96673cdc912e661988a1435`
+      `https://api.themoviedb.org/3/movie/${id}/lists?api_key=7cdf7d7de96673cdc912e661988a1435`
     )
       .then((res) => res.json())
       .then(
         (result) => {
-          this.setState({
-            title: result.title,
-            release_date: result.release_date,
-            poster_path: `https://www.themoviedb.org/t/p/w1280/${result.poster_path}`,
-            description: result.overview,
-            genres: result.genres,
-            rate: result.vote_average,
-            time: result.runtime,
-            fullMovieDetails: result,
-          });
-        },
+          //console.log(result);
 
-        (error) => {
-          console.log(error);
+          this.setState({
+            movieRelated:result
+          });
+          
         }
-      );
+      ).catch(console.log)
+      
   }
 
-  render() {
-    const {
-      title,
-      release_date,
-      poster_path,
-      description,
-      genres,
-      rate,
-      time,
-      fullMovieDetails,
-    } = this.state;
+  render(){
+    console.log(this.state.movieRelated);
+   const isLoaded= this.state.isLoaded
     return (
-      <div>
+        <>
+      {isLoaded &&
+       ( <div>
         <MovieTitle
-          title={title}
-          release_date={release_date}
-          time={time}
-          rate={rate}
-          genres={genres}
+          title={this.state.movieData.title}
+          release_date={this.state.movieData.release_date}
+          time={this.state.movieData.time}
+          rate={this.state.movieData.rate}
+          genres={this.state.movieData.genres}
         />
         <MovieDetails
-          poster_path={poster_path}
-          description={description}
-          fullMovieDetails={fullMovieDetails}
+          poster_path={this.state.movieData.poster_path}
+          description={this.state.movieData.description}
+          fullMovieDetails={this.state.movieData.fullMovieDetails}
         />
-        <RelatedMovie />
-      </div>
+        {this.state.movieRelated.length&& <RelatedMovie movieRelated={this.state.movieRelated} />}
+       
+      </div>)
+    }
+    </>
+      
     );
   }
 }
