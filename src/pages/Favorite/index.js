@@ -1,6 +1,14 @@
 import React from 'react';
+import  MovieCard  from "../../component/MovieCard";
 
 function Favorite() {
-  return <div>FavoritePage</div>;
+  const FavMovies=localStorage.getItem('FavMovies')
+  const FavMoviesObj=JSON.parse(FavMovies)
+  console.log(FavMoviesObj);
+  return <div>
+    <h3>Favorit Movie</h3>
+    {FavMoviesObj?.map((movie)=> <MovieCard movie={movie}/>)}
+   
+  </div>;
 }
 export default Favorite;

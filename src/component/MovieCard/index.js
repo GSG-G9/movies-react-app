@@ -1,24 +1,25 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './style.css';
+import PropTypes from 'prop-types';
 
-const movie = {
-  adult: false,
-  backdrop_path: '/cw8A0SprTxr7uSfcH7lwSRRhezJ.jpg',
-  genre_ids: [12, 14, 28],
-  id: 634244,
-  original_language: 'en',
-  original_title: "Heavenquest: A Pilgrim's Progress",
-  popularity: 725.041,
-  poster_path: '/cLDPLia17AwMqSaRHccyAlInkch.jpg',
-  release_date: '2020-07-13',
-  title: "Heavenquest: A Pilgrim's Progress",
-  video: false,
-  vote_average: 5.4,
-};
-
-const Movie = () => {
+const Movie = ({ movie }) => {
   const history = useHistory();
+  const handelClick = () => {
+    const { vote_average, title, poster_path, id } = movie;
+    const movieclick = { vote_average, title, poster_path, id };
+
+    const list = JSON.parse(localStorage.getItem('FavMovies')) || [];
+    const checkList = list.length
+      ? list.filter((ele) => ele.id === id).length == 0
+      : true;
+    if (checkList) {
+      const listMovie = [...list, movieclick];
+      localStorage.setItem('FavMovies', JSON.stringify(listMovie));
+    } else {
+      alert('add to favorite');
+    }
+  };
   return (
     <div className="movieCard">
       <img
@@ -27,19 +28,28 @@ const Movie = () => {
         alt="Poster"
       />
       <p>{movie.vote_average}</p>
-      <button
-        type="button"
-        className="cardTitle"
+      <p
+        className="card_title"
         onClick={() => history.push(`/movie/${movie.id}`)}
       >
-        <p>{movie.title}</p>
-      </button>
-
-      <button className="cardBtn" type="button">
+        {movie.title ? movie.title : 'No Title'}
+{' '}
+      </p>
+      <button className="cardBtn" type="button" onClick={handelClick}>
         Add to list
       </button>
     </div>
   );
+};
+Movie.propTypes = {
+  // validation
+
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Movie;

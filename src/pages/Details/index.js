@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import MovieTitle from '../../component/MovieTitle';
 import MovieDetails from '../../component/MovieDetails';
@@ -38,10 +36,10 @@ class Details extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          //console.log(result);
+          console.log(result.results);
 
           this.setState({
-            movieRelated:result
+            movieRelated:result.results
           });
           
         }
@@ -50,7 +48,6 @@ class Details extends Component {
   }
 
   render(){
-    console.log(this.state.movieRelated);
    const isLoaded= this.state.isLoaded
     return (
         <>
@@ -68,7 +65,7 @@ class Details extends Component {
           description={this.state.movieData.description}
           fullMovieDetails={this.state.movieData.fullMovieDetails}
         />
-        {this.state.movieRelated.length&& <RelatedMovie movieRelated={this.state.movieRelated} />}
+        {this.state.movieRelated.length&&<RelatedMovie movieRelated={this.state.movieRelated}/>}
        
       </div>)
     }
