@@ -28,13 +28,13 @@ const Movie = ({ movie }) => {
         alt="Poster"
       />
       <p>{movie.vote_average}</p>
-      <p
+      <button
         className="card_title"
         onClick={() => history.push(`/movie/${movie.id}`)}
+        type="button"
       >
         {movie.title ? movie.title : 'No Title'}
-{' '}
-      </p>
+      </button>
       <button className="cardBtn" type="button" onClick={handelClick}>
         Add to list
       </button>

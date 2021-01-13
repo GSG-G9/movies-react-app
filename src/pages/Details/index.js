@@ -31,12 +31,12 @@ class Details extends Component {
           });
         }).catch(console.log);
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/lists?api_key=7cdf7d7de96673cdc912e661988a1435`
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=7cdf7d7de96673cdc912e661988a1435&language=en-US&page=1`
     )
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result.results);
+          console.log(result);
 
           this.setState({
             movieRelated:result.results

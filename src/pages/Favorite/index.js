@@ -5,7 +5,7 @@ function Favorite() {
   const FavMovies=localStorage.getItem('FavMovies')
   const FavMoviesObj=JSON.parse(FavMovies)
   console.log(FavMoviesObj);
-  return <div>
+  return <div className="cardWrapper">
     <h3>Favorit Movie</h3>
     {FavMoviesObj?.map((movie)=> <MovieCard movie={movie}/>)}
    

@@ -5,10 +5,12 @@ import CaredMovie from '../MovieCard';
 function RelatedMovie({ movieRelated }) {
   return (
     <div>
-      <h3>Related Movie</h3>
-      {movieRelated?.map((row) => (
-        <CaredMovie movie={row} key={row.id} />
-      ))}
+      <h3>Top Rated</h3>
+      <div className="cardWrapper">
+        {movieRelated?.map((row) => (
+          <CaredMovie movie={row} key={row.id} />
+        ))}
+      </div>
     </div>
   );
 }

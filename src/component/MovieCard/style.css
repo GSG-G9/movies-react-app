@@ -1,16 +1,17 @@
-* {
-  margin: 0px;
-  padding: 0px;
-}
 .movieCard {
   margin: 15px;
-  border: black solid 1px;
   height: auto;
   width: 200px;
-  background-color: dimgrey;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .poster {
-  width: 200px;
+  width: 100%;
+}
+.poster:hover {
+  transform: scale(1.1);
+  box-shadow: #888888;
 }
 
 .cardBtn {
@@ -24,4 +25,11 @@
 
 .cardTitle {
   border: black solid 1px;
+}
+
+.card_title {
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  background: none;
 }
