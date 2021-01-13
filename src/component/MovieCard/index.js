@@ -2,22 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './style.css';
 
-const movie = {
-  adult: false,
-  backdrop_path: '/cw8A0SprTxr7uSfcH7lwSRRhezJ.jpg',
-  genre_ids: [12, 14, 28],
-  id: 634244,
-  original_language: 'en',
-  original_title: "Heavenquest: A Pilgrim's Progress",
-  popularity: 725.041,
-  poster_path: '/cLDPLia17AwMqSaRHccyAlInkch.jpg',
-  release_date: '2020-07-13',
-  title: "Heavenquest: A Pilgrim's Progress",
-  video: false,
-  vote_average: 5.4,
-};
-
-const Movie = () => {
+const Movie = ({ movie }) => {
   const history = useHistory();
   return (
     <div className="movieCard">
@@ -27,14 +12,7 @@ const Movie = () => {
         alt="Poster"
       />
       <p>{movie.vote_average}</p>
-      <button
-        type="button"
-        className="cardTitle"
-        onClick={() => history.push(`/movie/${movie.id}`)}
-      >
-        <p>{movie.title}</p>
-      </button>
-
+      <p className="card_title" onClick={() => history.push(`/movie/${movie.id}`)}>{movie.title ? movie.title: 'No Title'} </p>
       <button className="cardBtn" type="button">
         Add to list
       </button>
