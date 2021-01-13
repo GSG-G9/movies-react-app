@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable camelcase */
@@ -7,7 +9,7 @@ import React, { Component } from 'react';
 import MovieTitle from '../../component/MovieTitle';
 import MovieDetails from '../../component/MovieDetails';
 import RelatedMovie from '../../component/RelatedMovie';
-
+import PropTypes from 'prop-types'
 class Details extends Component {
   constructor() {
     super();
@@ -15,8 +17,7 @@ class Details extends Component {
   }
 
   componentDidMount() {
-    console.log(window.location.pathname.split('/'));
-    const id = window.location.pathname.split('/')[2];
+    const { id } = this.props.match.params;
     fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=7cdf7d7de96673cdc912e661988a1435`
     )
