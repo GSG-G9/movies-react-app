@@ -8,7 +8,9 @@ class Home extends React.Component {
     searchVal: '',
     selectVal: '',
     trending: [], 
-    rateVal: 0
+    rateVal: 0,
+    searchByMovie: [],
+    showTrending: true,
   }
   componentDidMount(){
     fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=7cdf7d7de96673cdc912e661988a1435')
@@ -17,15 +19,26 @@ class Home extends React.Component {
     
     fetch('https://api.themoviedb.org/3/trending/all/day?api_key=7cdf7d7de96673cdc912e661988a1435')
       .then(res => res.json())
-      .then(data => this.setState({trending: data.results}))
-      
+      .then(data =>{
+        this.setState({trending: data.results})
+        this.setState({showTrending:true});
+      })
       .catch(err => console.log(err.message));
   }
 
+searchByMovieName = (event) => {this.setState({searchByMovie: event.target.value})};
+
+fetchMovie = (event) => {
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=7cdf7d7de96673cdc912e661988a1435&query=${this.state.searchVal}`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({searchByMovie: data.results});
+      this.setState({showTrending:false}); 
+    })
+};
 
 handleChanges = ({target: {name, value}}) => {
   this.setState({[name]: value})
-  console.log(name, value);
 }
 
   categoryRequest = (id) => {
@@ -33,30 +46,35 @@ handleChanges = ({target: {name, value}}) => {
   }
 
   render() {
-    
-    // const data =  this.state.trending.filter((element) => element.title.includes(this.state.searchVal));
-    const rateFilter = this.state.trending.filter(element => element.vote_average >= this.state.rateVal);
+    const movieData = !this.state.showTrending? this.state.searchByMovie : this.state.trending;
     return (
-      
       <div>
-        <h1>Logo</h1>
-        
-        <select name="selectVal" id="genre" onChange={this.handleChanges}>
-          { this.state.categories.map((genre) => <option value={genre.id}>{genre.name}</option> )}
-        </select> 
-        <input name="rateVal" type="range" min='0' max='9' onChange={this.handleChanges}/>
+        <div className="search_bar">
+          <div className="">
+            <select className="slct" name="selectVal" id="genre" onChange={this.handleChanges}>
+                { this.state.categories.map((genre) => <option value={genre.id}>{genre.name}</option> )}
+              </select>
+              <input className="search_input" type="text" placeholder="Enter Movie name" value= {this.state.searchVal} name="searchVal"  onChange={this.handleChanges}/> 
+              <button className="btn" type="button" onClick={this.fetchMovie}>Search for Movie</button>
+              <button className="btn danger" type="button" onClick= {() => this.setState({showTrending: false, searchVal: '',
+              searchByMovie: [],
+              showTrending: true
+              })}>Clear</button>
 
-        <input type="text" name="searchVal" onChange={this.handleChanges}/>
-        
+            </div>
+            <div>
+              <p>Filter By rate</p>
+              <input  name="rateVal" type="range" min='0' max='9' onChange={this.handleChanges}/>
+            </div>
+        </div>
+       
         <div className='cardWrapper'>
-          {this.state.trending.filter((element) =>  element.vote_average >= this.state.rateVal && element.original_title? element.original_title.toLowerCase().includes(this.state.searchVal.toLowerCase()): false  ).map(movie => <Movie movie={movie}/>)}
+         
+          { (movieData ).filter((element) =>  element.vote_average >= this.state.rateVal && element.original_title? element.original_title.toLowerCase().includes(this.state.searchVal.toLowerCase()): false  ).map(movie => <Movie movie={movie}/>)}
+          
         </div>
       </div>
     );
   }
 }
-// Function for fetching data from the search bar
-// function for fetching data from the select choises
-// map on the object of arrays and render cards
-
 export default Home;

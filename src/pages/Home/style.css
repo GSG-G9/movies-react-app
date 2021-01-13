@@ -4,3 +4,33 @@
   justify-content: center;
   margin-top: 15px;
 }
+.search_bar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  width: 90%;
+  margin: auto;
+}
+.btn {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  margin-left: 5px;
+  background-color: rgb(115, 115, 255);
+  color: white;
+}
+.danger {
+  background-color: rgb(180, 34, 34);
+}
+
+.search_input {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #ebe8e8;
+}
+
+.slct {
+  padding: 5px;
+  margin: 0px 5px;
+}
