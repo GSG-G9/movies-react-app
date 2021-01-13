@@ -29,4 +29,7 @@
 
 .card_title {
   cursor: pointer;
+  border: none;
+  text-decoration: none;
+  background: none;
 }

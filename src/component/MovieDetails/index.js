@@ -9,23 +9,31 @@ class MovieDetails extends Component {
       FavoriteMovies: [],
     };
   }
- handelClick = ()=>{
+  handelClick =()=>{
+
+    const {vote_average,title,poster_path,id}=this.props.fullMovieDetails
+   const movie={vote_average,title,poster_path,id}
+   
+   let list = JSON.parse(localStorage.getItem('FavMovies'))||[]
+   console.log(list);
+   const checkList=list.length?list.filter((ele)=>ele.id===id).length==0 :true
+   if(checkList){
+     const listMovie=[...list,movie]
+  localStorage.setItem('FavMovies', JSON.stringify(listMovie))
+  console.log(JSON.parse(localStorage.getItem('FavMovies')));
   
-  const {FavoriteMovies}=this.state
-  const list =[...FavoriteMovies,this.props.fullMovieDetails]
-  this.setState({
-    FavoriteMovies:list,
-  })
-}
+   }else{
+     alert ('add to favorite')
+   }};
   render() {
     console.log(this.state.FavoriteMovies);
     return (
       <div>
-        <img src={this.props.poster_path} alt="MovieImg" />
+        <img src={this.props.poster_path} alt="MovieImg" width="200" />
         <p>{this.props.description}</p>
-        <button type="submit" onClick={this.handelClick}>add to favorite </button>
+        <button  onClick={this.handelClick}>add to favorite </button>
       </div>
     );
   }
-}
+};
 export default MovieDetails;

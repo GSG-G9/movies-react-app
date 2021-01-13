@@ -1,0 +1,32 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: auto;
+    width: 90%;
+  }
+  
+  .nav_bar {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+  }
+  li {
+    display: inline-block;
+    text-decoration: none;
+    padding: 20px;
+  }
+  li a {
+    text-decoration: none;
+    opacity: 0.8;
+    color: black;
+    font-weight: bold;
+  }
+  li a:hover {
+    opacity: 1;
+  }
+  
